@@ -49,6 +49,7 @@ var projection = d3.geo.albersUsa()
     .scale(1280)
     .translate([width / 2, height / 2]);
 
+
 // new path variable that receives the projection
 var path = d3.geo.path()
     .projection(projection);
@@ -57,6 +58,7 @@ var path = d3.geo.path()
 var svg = d3.select("body").append("svg")
     .attr("width", width)
     .attr("height", height);
+
 
 // A queue evaluates zero or more deferred asynchronous tasks with configurable
 // concurrency: you control how many tasks run at the same time. When all the
@@ -91,7 +93,9 @@ function ready(error, oregon) {
       .attr("d", path)
 	  .style("stroke", "black")
   .style("fill", "none")
-  .style("stroke-width", "1");
+  .style("stroke-width", "1")
+  // ROTATE SVG ELEMENT RIGHT HERE
+  .attr("transform", "rotate(-15)");
 
 
   // WE DON'T NEED THIS -> it's for STATES
