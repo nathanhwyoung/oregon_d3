@@ -57,8 +57,7 @@
 		var width = 900,
 			height = 900;
 
-
-		// Constructs a new map. If object is specified, copies all enumerable properties
+		// Constructs a new map and declares it rateById. If object is specified, copies all enumerable properties
 		// from the specified object into this map. The specified object may be an array.
 		// An optional key function may be specified to compute the key for each value in the array.
 		var rateById = d3.map();
@@ -92,7 +91,6 @@
 		// To run multiple tasks simultaneously, create a queue, defer your tasks, and
 		// then register an await callback to be called when all of the tasks complete (or an error occurs):
 		queue()
-			// WILL NEED TO CHANGE US.JSON
 			.defer(d3.json, "oregon.json")
 			.defer(d3.tsv, "unemployment.tsv", function(d) {
 				rateById.set(d.id, +d.rate);
@@ -101,7 +99,6 @@
 
 		// this is the that is passed to the await function and is called once the deferred tasks have completed
 		// will throw an error if present
-		// WILL NEED TO CHANGE US
 		function ready(error, oregon) {
 			if (error) throw error;
 
@@ -113,7 +110,6 @@
 				// in the given topology. If the specified object is a GeometryCollection,
 				// a FeatureCollection is returned, and each geometry in the collection is
 				// mapped to a Feature. Otherwise, a Feature is returned.
-				// WILL NEED TO CHANGE US
 				.data(topojson.feature(oregon, oregon.objects.tl_2015_us_county_STATEFP__41).features)
 				.enter().append("path")
 				.attr("class", function(d) {
@@ -127,14 +123,6 @@
 				.attr("transform", "rotate(-15)")
 				.style("width", width)
 				.style("height", height);
-
-
-			// WE DON'T NEED THIS -> it's for STATES
-			// svg.append("path")
-			//     .datum(topojson.mesh(oregon, oregon.objects.tl_2015_us_county_STATEFP__41, function(a, b) { return a !== b; }))
-			//     .attr("class", "states")
-			//     .attr("d", path);
-
 		}
 
 		d3.select(self.frameElement).style("height", height + "px");
