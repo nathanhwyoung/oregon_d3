@@ -1,8 +1,8 @@
-/*.counties {
-fill: pink;
+.counties {
+fill: none;
 }
 
-.states {
+/*.states {
 fill: none;
 stroke: #fff;
 stroke-linejoin: round;
@@ -28,7 +28,7 @@ stroke-linejoin: round;
 	fill: rgb(107, 174, 214);
 }
 
-.q5-9 {
+path.q5-9 {
 	fill: rgb(66, 146, 198);
 }
 

@@ -1,1 +1,3 @@
 - how to find county id's for oregon
+
+- play with scale and translate methods

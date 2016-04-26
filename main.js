@@ -20,18 +20,14 @@ var quantize = d3.scale.quantize()
 		return "q" + i + "-9";
 	}));
 
-// standard albersUsa projection
 var projection = d3.geo.albersUsa()
 	.scale(1280);
 
-// new path variable that receives the projection
 var path = d3.geo.path()
 	.projection(projection);
 
-// append the svg to the body, DUH
 var svg = d3.select("body").append("svg");
-// .attr("width", width)
-// .attr("height", height);
+
 
 
 // A queue evaluates zero or more deferred asynchronous tasks with configurable
@@ -42,18 +38,15 @@ var svg = d3.select("body").append("svg");
 // then register an await callback to be called when all of the tasks complete (or an error occurs):
 queue()
 	.defer(d3.json, "oregon.json")
-	.defer(d3.tsv, "unemployment.tsv", function(d) {
+	.defer(d3.tsv, "data.tsv", function(d) {
 		rateById.set(d.id, +d.rate);
 	})
 	.await(ready);
 
-// this is the that is passed to the await function and is called once the deferred tasks have completed
-// will throw an error if present
 function ready(error, oregon) {
 	if (error) throw error;
 
 	svg.append("g")
-		// apply counties class
 		.attr("class", "counties")
 		.selectAll("path")
 		// Returns the GeoJSON Feature or FeatureCollection for the specified object
@@ -61,18 +54,17 @@ function ready(error, oregon) {
 		// a FeatureCollection is returned, and each geometry in the collection is
 		// mapped to a Feature. Otherwise, a Feature is returned.
 		.data(topojson.feature(oregon, oregon.objects.tl_2015_us_county_STATEFP__41).features)
-		.enter().append("path")
+		.enter()
+		.append("path")
 		.attr("class", function(d) {
+			// console.log(d);
+			// console.log(quantize(rateById.get(d.id)));
 			return quantize(rateById.get(d.id));
 		})
 		.attr("d", path)
 		.style("stroke", "green")
-		.style("fill", "none")
 		.style("stroke-width", "1")
-		// ROTATE SVG ELEMENT RIGHT HERE
-		.attr("transform", "rotate(-15)")
-		.style("width", width)
-		.style("height", height);
+		.attr("transform", "rotate(-15)");
 }
 
 d3.select(self.frameElement).style("height", height + "px");
