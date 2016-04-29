@@ -4,23 +4,25 @@ var width = 900,
 var rateById = d3.map();
 
 var quantize = d3.scale.quantize()
-    .domain([0, .15])
+	// sets the range of numbers that come in
+	// in the future, a max/min combo will be needed here
+    .domain([0, 1])
     .range(d3.range(9).map(function(i) {
         return "q" + i + "-9";
     }));
 
 var projection = d3.geo.albers()
     .scale(6000)
-	.center([-25, 47.4]);
-	// .translate([width / 3, height / 3]);
-	console.log(projection.center());
+    .center([-25, 47.4]);
+// .translate([width / 3, height / 3]);
+// console.log(projection.center());
 
 var path = d3.geo.path()
     .projection(projection);
 
 var svg = d3.select("body").append("svg")
     .attr("width", width)
-	.attr("height", height);
+    .attr("height", height);
 
 queue()
     .defer(d3.json, "oregon.json")
@@ -42,9 +44,16 @@ function ready(error, oregon) {
             return quantize(rateById.get(d.id));
         })
         .attr("d", path)
-        .style("stroke", "green")
+        .style("stroke", "black")
         .style("stroke-width", "1")
+        // .style('fill', function(d) {
+        //     var randomColor = 'rgb(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ')';
+        //     return randomColor;
+        // })
         .attr("transform", "rotate(-15)");
+		// this should allow the rate to popup, but only works with d.id
+		// .append("title")
+		// .text( function(d) { return d.rate });
 }
 
 d3.select(self.frameElement).style("height", height + "px");
