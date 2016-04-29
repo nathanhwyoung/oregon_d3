@@ -1,5 +1,5 @@
-var width = 800,
-    height = 800;
+var width = 900,
+    height = 900;
 
 var rateById = d3.map();
 
