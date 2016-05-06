@@ -9,7 +9,8 @@ var quantize = d3.scale.quantize()
     .domain([0, 1])
     // defines
     .range(d3.range(9).map(function(i) {
-        return "q" + i + "-9";
+		// for different datasets, could different css classes be applied?
+        return "B" + i + "-9";
     }));
 
 var projection = d3.geo.albers()

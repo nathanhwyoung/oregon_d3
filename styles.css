@@ -8,38 +8,78 @@ stroke: #fff;
 stroke-linejoin: round;
 }*/
 
-.q0-9 {
+/*original set of classes*/
+
+.A0-9 {
 	fill: rgb(247, 251, 255);
 }
 
-.q1-9 {
+.A1-9 {
 	fill: rgb(222, 235, 247);
 }
 
-.q2-9 {
+.A2-9 {
 	fill: rgb(198, 219, 239);
 }
 
-.q3-9 {
+.A3-9 {
 	fill: rgb(158, 202, 225);
 }
 
-.q4-9 {
+.A4-9 {
 	fill: rgb(107, 174, 214);
 }
 
-.q5-9 {
+.A5-9 {
 	fill: rgb(66, 146, 198);
 }
 
-.q6-9 {
+.A6-9 {
 	fill: rgb(33, 113, 181);
 }
 
-.q7-9 {
+.A7-9 {
 	fill: rgb(8, 81, 156);
 }
 
-.q8-9 {
+.A8-9 {
 	fill: rgb(8, 48, 107);
+}
+
+/*secondary set of classes*/
+
+.B0-9 {
+	fill: rgb(255, 247, 243);
+}
+
+.B1-9 {
+	fill: rgb(253, 224, 221);
+}
+
+.B2-9 {
+	fill: rgb(252, 197, 192);
+}
+
+.B3-9 {
+	fill: rgb(250, 159, 181);
+}
+
+.B4-9 {
+	fill: rgb(247, 104, 161);
+}
+
+.B5-9 {
+	fill: rgb(221, 52, 151);
+}
+
+.B6-9 {
+	fill: rgb(174, 1, 126);
+}
+
+.B7-9 {
+	fill: rgb(122, 1, 119);
+}
+
+.B8-9 {
+	fill: rgb(73, 0, 106);
 }
