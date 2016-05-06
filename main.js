@@ -4,28 +4,39 @@ var width = 900,
 var rateById = d3.map();
 
 var quantize = d3.scale.quantize()
-	// sets the range of numbers that come in
-	// in the future, a max/min combo will be needed here
+    // sets the range of numbers that come in
+    // in the future, a max/min combo will be needed here
     .domain([0, 1])
+    // defines
     .range(d3.range(9).map(function(i) {
         return "q" + i + "-9";
     }));
 
 var projection = d3.geo.albers()
-    .scale(6000)
-    .center([-25, 47.4]);
+    .rotate([120, 0])
+    .center([-0.7, 44.2])
+    .scale(width * 9.5)
+    .translate([width / 2, height / 2]);
+// .scale(6000)
+// .center([-25, 47.4]);
 // .translate([width / 3, height / 3]);
 // console.log(projection.center());
 
 var path = d3.geo.path()
     .projection(projection);
 
+// appends the svg element to the body element in the DOM
 var svg = d3.select("body").append("svg")
     .attr("width", width)
     .attr("height", height);
 
 queue()
+    // performs the .defer tasks, and then calls the callback function passed to the .await function
+    // in this instance, .defer() is being passed a function, as well as the file
+    // references and anonymous function that get passed to that function
     .defer(d3.json, "oregon.json")
+    // the data received from the data.tsv file, using the d3.tsv function - is
+    // passed into an anonymous callback function and used in the rateById function
     .defer(d3.tsv, "data.tsv", function(d) {
         rateById.set(d.id, +d.rate);
     })
@@ -45,15 +56,12 @@ function ready(error, oregon) {
         })
         .attr("d", path)
         .style("stroke", "black")
-        .style("stroke-width", "1")
+        .style("stroke-width", "1");
         // .style('fill', function(d) {
-        //     var randomColor = 'rgb(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ')';
-        //     return randomColor;
-        // })
-        .attr("transform", "rotate(-15)");
-		// this should allow the rate to popup, but only works with d.id
-		// .append("title")
-		// .text( function(d) { return d.rate });
+            // var randomColor = 'rgb(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ')';
+            // return randomColor;
+        // });
+    // .attr("transform", "rotate(-15)");
 }
 
 d3.select(self.frameElement).style("height", height + "px");
