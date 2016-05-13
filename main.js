@@ -31,6 +31,10 @@ var svg = d3.select("body").append("svg")
     .attr("width", width)
     .attr("height", height);
 
+// var commodity = "Turkeys";
+var commodity = "Chickens";
+
+
 queue()
     // performs the .defer tasks, and then calls the callback function passed to the .await function
     // in this instance, .defer() is being passed a function, as well as the file
@@ -41,7 +45,7 @@ queue()
     // .defer(d3.tsv, "data.tsv", function(d) {
     //     rateById.set(d.id, +d.rate);
     // })
-	.defer(d3.json, "http://api.cropcompass.org/data/nass_animals_inventory?commodity=Turkeys", function(d) {
+	.defer(d3.json, "http://api.cropcompass.org/data/nass_animals_inventory?commodity="+commodity, function(d) {
 		console.log(d.data[0].animals)
         rateById.set(d.id, +d.rate);
     })
