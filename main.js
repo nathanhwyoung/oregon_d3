@@ -10,7 +10,7 @@ var quantize = d3.scale.quantize()
     // defines
     .range(d3.range(9).map(function(i) {
 		// for different datasets, could different css classes be applied?
-        return "B" + i + "-9";
+        return "A" + i + "-9";
     }));
 
 var projection = d3.geo.albers()
@@ -38,7 +38,11 @@ queue()
     .defer(d3.json, "oregon.json")
     // the data received from the data.tsv file, using the d3.tsv function - is
     // passed into an anonymous callback function and used in the rateById function
-    .defer(d3.tsv, "data.tsv", function(d) {
+    // .defer(d3.tsv, "data.tsv", function(d) {
+    //     rateById.set(d.id, +d.rate);
+    // })
+	.defer(d3.json, "http://api.cropcompass.org/data/nass_animals_inventory?commodity=Turkeys", function(d) {
+		console.log(d.data[0].animals)
         rateById.set(d.id, +d.rate);
     })
     .await(ready);
