@@ -1,7 +1,7 @@
 var width = 900,
     height = 900;
 
-var rateById = d3.map();
+var map = d3.map();
 
 var quantize = d3.scale.quantize()
     // sets the range of numbers that come in
@@ -31,9 +31,8 @@ var svg = d3.select("body").append("svg")
     .attr("width", width)
     .attr("height", height);
 
-// var commodity = "Turkeys";
-var commodity = "Cattle";
-
+var commodity = "Turkeys";
+// var commodity = "Cattle";
 
 queue()
     // performs the .defer tasks, and then calls the callback function passed to the .await function
@@ -41,14 +40,19 @@ queue()
     // references and anonymous function that get passed to that function
     .defer(d3.json, "oregon.json")
     // the data received from the data.tsv file, using the d3.tsv function - is
-    // passed into an anonymous callback function and used in the rateById function
-    // .defer(d3.tsv, "data.tsv", function(d) {
-    //     rateById.set(d.id, +d.rate);
-    // })
-	.defer(d3.json, "http://api.cropcompass.org/data/nass_animals_inventory?commodity="+commodity, function(d) {
-		console.log(d.data[0].animals)
-        rateById.set(d.id, +d.rate);
+    // passed into an anonymous callback function and used in the map function
+    .defer(d3.tsv, "data.tsv", function(d) {
+		// FIGURE OUT WHAT map.set IS DOING HERE
+        map.set(d.id, +d.rate);
+		console.log(d.rate);
     })
+	// .defer(d3.json, "http://api.cropcompass.org/data/nass_animals_inventory?commodity="+commodity, function(d) {
+	// 	for(var i=0; i<d.length; i++) {
+	// 		var
+	// 	}
+		// console.log(d.data[0].animals)
+    //     map.set(d.id, +d.rate);
+    // })
     .await(ready);
 
 function ready(error, oregon) {
@@ -61,7 +65,7 @@ function ready(error, oregon) {
         .enter()
         .append("path")
         .attr("class", function(d) {
-            return quantize(rateById.get(d.id));
+            return quantize(map.get(d.id));
         })
         .attr("d", path)
         .style("stroke", "black")
