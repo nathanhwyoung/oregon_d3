@@ -32,7 +32,7 @@ var svg = d3.select("body").append("svg")
     .attr("height", height);
 
 // var commodity = "Turkeys";
-var commodity = "Chickens";
+var commodity = "Cattle";
 
 
 queue()
