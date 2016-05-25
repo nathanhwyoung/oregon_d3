@@ -7,7 +7,7 @@ var quantize = d3.scale.quantize()
     // sets the range of numbers that come in
     // in the future, a max/min combo will be needed here
     .domain([0, 1])
-    // defines
+    // why is i being used here???
     .range(d3.range(9).map(function(i) {
 		// for different datasets, could different css classes be applied?
         return "A" + i + "-9";
@@ -43,14 +43,16 @@ queue()
     // passed into an anonymous callback function and used in the map function
     .defer(d3.tsv, "data.tsv", function(d) {
 		// FIGURE OUT WHAT map.set IS DOING HERE
-        map.set(d.id, +d.rate);
-		console.log(d.rate);
+		// took this out, what does the + do?
+		// map.set(d.id, +d.rate);
+        map.set(d.id, d.rate);
+		// console.log(d.rate);
     })
 	// .defer(d3.json, "http://api.cropcompass.org/data/nass_animals_inventory?commodity="+commodity, function(d) {
 	// 	for(var i=0; i<d.length; i++) {
 	// 		var
 	// 	}
-		// console.log(d.data[0].animals)
+	// 	console.log(d.data[0].animals)
     //     map.set(d.id, +d.rate);
     // })
     .await(ready);
